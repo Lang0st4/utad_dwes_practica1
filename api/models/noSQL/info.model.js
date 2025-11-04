@@ -1,0 +1,36 @@
+//Import
+const mongoose = require("mongoose");
+
+const infoSchema = new mongoose.Schema(
+    {
+        probeID: {
+            type: String,
+            required: true
+        },
+        temperature: {
+            type: Number,
+            required: true
+        },
+        apparentTemperature: {
+            type: Number
+        },
+        cloudCover: {
+            type: String,
+        },
+        date: {
+            type: Date,
+            required: true
+        },
+        time: {
+            type: String,
+            required: true
+        }
+    },
+    {
+        timestamp: true,
+        versionKey: false
+    }
+);
+
+//Export
+module.exports = mongoose.model("info", infoSchema);
