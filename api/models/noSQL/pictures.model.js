@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 
 const picturesSchema = new mongoose.Schema(
     {
+        id: {
+            type: Number,
+            required: true,
+            unique: true
+        },
         url: {
             type: String,
             unique: true,

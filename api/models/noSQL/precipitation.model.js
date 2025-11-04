@@ -3,6 +3,11 @@ const mongoose = require("mongoose");
 
 const precipitationSchema = new mongoose.Schema(
     {
+        id: {
+            type: Number,
+            required: true,
+            unique: true
+        },
         probeID: {
             type: String,
             required: true
