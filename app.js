@@ -1,16 +1,26 @@
 //Imports
 const express = require("express");
 const cors = require("cors");
-const mongoDBConnect = require("./api/config/mongodb.config");
 require("dotenv").config();
 
-//Middlewares
+//MongoDB Connection
+const dbConnect= require("./api/config/mongodb.config");
+const PORT = process.env.PORT;
+
+//Web Server Setup
 const app = express();
 app.use(cors());
 app.use(express.json());
 
-const PORT = process.env.PORT;
-app.listen(PORT, () => {
-    console.log(`Server listening on port: ${PORT}`);
-    mongoDBConnect();
+app.use("/api", require("./api/routes"));
+
+//Initialize Web Server
+app.listen(PORT, async () => {
+    try {
+        await dbConnect();
+        console.log(`Server listening at port: ${PORT}...`);
+    }
+    catch(err) {
+        console.err(`Server initializing failed at port ${PORT}`)
+    }
 });
