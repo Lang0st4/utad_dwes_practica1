@@ -1,0 +1,33 @@
+GET http://localhost:3000/api/humidity HTTP/1.1
+
+###
+GET http://localhost:3000/api/humidity/1 HTTP/1.1
+
+###
+POST http://localhost:3000/api/humidity HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "probeID": "probe1",
+    "humidity": 0,
+    "dewPoint": 0,
+    "date": "2025-11-05T14:45:30.000Z",
+    "time": ""
+}
+
+###
+PUT http://localhost:3000/api/humidity/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 0,
+    "probeID": "probe1",
+    "humidity": 0,
+    "dewPoint": 0,
+    "date": "2025-11-05T14:45:30.000Z",
+    "time": ""
+}
+
+###
+DELETE http://localhost:3000/api/humidity/0 HTTP/1.1

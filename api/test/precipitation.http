@@ -1,0 +1,29 @@
+GET http://localhost:3000/api/precipitation HTTP/1.1
+
+###
+GET http://localhost:3000/api/precipitation/1 HTTP/1.1
+
+###
+POST http://localhost:3000/api/precipitation HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 1,
+    "probeID": "probe1",
+    "type": "Snow",
+    "probability": 0
+}
+
+###
+PUT http://localhost:3000/api/precipitation/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "id": 0,
+    "probeID": "probe1",
+    "type": "Snow",
+    "probability": 0
+}
+
+###
+DELETE http://localhost:3000/api/precipitation/1 HTTP/1.1
