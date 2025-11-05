@@ -8,7 +8,7 @@ const {
     updateHumidity,
     deleteHumidity
 } = require("../controllers/humidity.controller");
-const router = express.router();
+const router = express.Router();
 
 //GET ALL
 router.get("/", getHumidity);

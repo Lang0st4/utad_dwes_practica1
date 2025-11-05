@@ -8,7 +8,7 @@ const {
     updateUser,
     deleteUser
 } = require("../controllers/users.controller");
-const router = express.router();
+const router = express.Router();
 
 //GET ALL
 router.get("/", getUsers);

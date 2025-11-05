@@ -8,7 +8,7 @@ const {
     updateInfo,
     deleteInfo
 } = require("../controllers/info.controller");
-const router = express.router();
+const router = express.Router();
 
 //GET ALL
 router.get("/", getInfo);

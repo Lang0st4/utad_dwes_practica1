@@ -8,7 +8,7 @@ const {
     updateAirQuality,
     deleteAirQuality
 } = require("../controllers/airQuality.controller");
-const router = express.router();
+const router = express.Router()
 
 //GET ALL
 router.get("/", getAirQuality);

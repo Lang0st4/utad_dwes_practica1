@@ -8,7 +8,7 @@ const {
     updatePicture,
     deletePicture
 } = require("../controllers/pictures.controller");
-const router = express.router();
+const router = express.Router();
 
 //GET ALL
 router.get("/", getPictures);

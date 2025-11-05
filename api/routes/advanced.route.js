@@ -8,7 +8,7 @@ const {
     updateAdvanced,
     deleteAdvanced
 } = require("../controllers/advanced.controller");
-const router = express.router();
+const router = express.Router();
 
 //GET ALL
 router.get("/", getAdvanced);

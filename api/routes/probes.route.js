@@ -8,7 +8,7 @@ const {
     updateProbe,
     deleteProbe
 } = require("../controllers/probes.controller");
-const router = express.router();
+const router = express.Router();
 
 //GET ALL
 router.get("/", getProbes);
