@@ -9,7 +9,7 @@ Content-Type: application/json
 
 {
     "username": "user1",
-    "fullname": "user1APIExample",
+    "fullName": "user1APIExample",
     "email": "user1@gmail.com",
     "password": "user1Password"
 }
