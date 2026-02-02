@@ -1,7 +1,7 @@
 //Import
 const { handleHTTPError, UNAUTHORIZED } = require("../utils/handleResponse.util");
 const { verifyToken } = require("../utils/handleJWT.util");
-const { usersModel } = require("../models");
+const { usersModel } = require("../models/noSQL/users.model");
 
 /* Obtains the req token and validates it
 If it passes inserts the user instead of the token payload */ 

@@ -34,10 +34,10 @@ const usersSchema = new mongoose.Schema(
         }
     },
     {
-        timestamp: true,
+        timestamps: true,
         versionKey: false
     }
 );
 
 //Export
-module.exports = mongoose.model("users", usersSchema);
+module.exports = mongoose.models.users || mongoose.model("users", usersSchema);

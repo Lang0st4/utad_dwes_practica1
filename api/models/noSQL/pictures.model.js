@@ -27,7 +27,7 @@ const picturesSchema = new mongoose.Schema(
         }
     },
     {
-        timestamp: true,
+        timestamps: true,
         versionKey: false
     }
 );
