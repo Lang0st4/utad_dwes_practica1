@@ -1,6 +1,9 @@
 //Import
-const usersModel = require("../models/nosql/users.model");
-const { handleHTTPResponse, handleHTTPError, INTERNAL_SERVER_ERROR } = require("../utils/handleResponse.util");
+const { matchedData } = require("express-validator");
+const { usersModel } = require("../models/nosql/users.model");
+const { handleHTTPResponse, handleHTTPError, INTERNAL_SERVER_ERROR, NOT_FOUND, UNAUTHORIZED } = require("../utils/handleResponse.util");
+const { hashPassword, comparePassword } = require("../utils/handlePassword.util");
+const { tokenSign } = require("../utils/handleJWT.util");
 
 //GET ALL
 const getUsers = async (req, res) => {
@@ -14,12 +17,30 @@ const getUsers = async (req, res) => {
     }
 };
 
-//GET by ID
+//GET by ID (Login)
 const getUsersByName = async (req, res) => {
     try {
-        const username = req.params.username;
-        const data = await usersModel.findById(username);
-        handleHTTPResponse(res, "Users retrieved successfully", data);
+        req = matchedData(req);
+
+        const user = await usersModel.findOne({ email: req.email }).select("password username role email");
+
+        if(!user) {
+            handleHTTPError(res, "User does not exists", NOT_FOUND);
+            return;
+        }
+
+        const check = await comparePassword(req.password, user.password);
+        if(!check) {
+            handleHTTPError(res, "Invalid password", UNAUTHORIZED);
+            return;
+        }
+
+        user.set("password", undefined, { strict: false });
+        const data = {
+            token: await tokenSign(user),
+            user
+        }
+        handleHTTPResponse(res, "Authentication success", data);
     }
     catch(err) {
         console.log(`Error: ${err}`);
@@ -27,12 +48,21 @@ const getUsersByName = async (req, res) => {
     }
 };
 
-//CREATE
+//CREATE (Register)
 const createUser = async (req, res) => {
     try {
-        const body = req.body;
-        const data = await usersModel.create(body);
-        handleHTTPResponse(res, "Users created successfully", data);
+        req = matchedData(req);
+
+        const hashedPassword = await hashPassword(req.password);
+        const body = { ...req, password: hashedPassword};
+        const dataUser = await usersModel.create(body);
+        dataUser.set("password", undefined, { strict: false });
+
+        const data = {
+            token: await tokenSign(dataUser),
+            user: dataUser
+        };
+        handleHTTPResponse(res, "User signed up successfully", data);
     }
     catch(err) {
         console.log(`Error: ${err}`);
